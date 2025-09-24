@@ -44,6 +44,28 @@ chart_choice = st.sidebar.radio(
 if chart_choice == "Top 10 Models by City MPG (Bar)":
     st.subheader("🌟 Top 10 Models by City MPG")
 
+    # Group by Model and take top 10
+    top_models = (
+        filtered_type.groupby('Model_Type')['MPG_City']
+        .sum()
+        .nlargest(10)
+        .reset_index()
+    )
+    st.write(top_models)
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    sb.barplot(
+        data=top_models,
+        x="Model_Type",
+        y="MPG_City",
+        palette="coolwarm",
+        ax=ax
+    )
+    plt.xticks(rotation=45, ha="right")
+    ax.set_xlabel("Model Type")
+    ax.set_ylabel("Total City MPG")
+    st.pyplot(fig)
+
     top_models = filtered_type.groupby('Model_Type')['MPG_City'].sum().nlargest(10)
     st.write(top_models)
 
