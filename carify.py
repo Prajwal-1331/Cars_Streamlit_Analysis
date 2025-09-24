@@ -61,5 +61,19 @@ elif chart_choice == "Car Type Distribution (Pie)":
 
     fig2, ax2 = plt.subplots(figsize=(6, 6))
     colors = sb.color_palette("pastel")[0:len(type_counts)]
-    ax2.pie(type_counts.values, labels=type_counts.index, autopct='%1.1f%%', colors=color
+    ax2.pie(type_counts.values, labels=type_counts.index, autopct='%1.1f%%', colors=colors, startangle=90)
+    ax2.axis("equal")  # Equal aspect ratio
+    st.pyplot(fig2)
 
+elif chart_choice == "Weight Distribution (KDE)":
+    st.subheader("⚖️ Weight Distribution (KDE)")
+
+    fig3, ax3 = plt.subplots(figsize=(8, 5))
+    sb.kdeplot(filtered_make.Weight, ax=ax3, fill=True, color="purple", alpha=0.5, linewidth=2)
+    ax3.set_xlabel("Car Weight")
+    ax3.set_ylabel("Density")
+    st.pyplot(fig3)
+
+# --- Footer ---
+st.markdown("---")
+st.markdown("💡 *Tip: Use the sidebar to filter data and switch between visualizations.*")
