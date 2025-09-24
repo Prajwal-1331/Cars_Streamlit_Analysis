@@ -28,11 +28,6 @@ filtered_make = df[df.Make == make_choice]
 type_choice = st.selectbox("Select Car Type", filtered_make.Type.unique())
 filtered_type = filtered_make[filtered_make.Type == type_choice]
 
-# Top 10 Models by MPG_City
-st.subheader("Top 10 Models by City MPG")
-top_models = filtered_type.groupby('Model_Type')['MPG_City'].sum().nlargest(10)
-st.write(top_models)
-
 # Barplot
 fig, ax = plt.subplots()
 sb.barplot(x=filtered_type.Model_Type, y=filtered_type.MPG_City, ax=ax)
